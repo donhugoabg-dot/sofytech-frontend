@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin - SofyTech 2.0</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white p-8">
+  <h1 class="text-3xl mb-4">Panel Admin - SofyTech 2.0</h1>
+  <div id="dashboard" class="grid grid-cols-3 gap-6"></div>
+
+  <div class="mt-6">
+    <input id="aemail" placeholder="Email admin" class="p-2 rounded bg-gray-800"/>
+    <input id="apass" placeholder="Password" type="password" class="p-2 rounded bg-gray-800"/>
+    <button id="loadDashboard" class="bg-blue-600 px-4 py-2 rounded">Cargar dashboard</button>
+  </div>
+
+  <script>
+    document.getElementById('loadDashboard').addEventListener('click', async () => {
+      const email = document.getElementById('aemail').value;
+      const pass = document.getElementById('apass').value;
+      if(!email || !pass) return alert('Ingresa credenciales');
+      // login to get token
+      const res = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: pass }) });
+      const data = await res.json();
+      if(!data.token) return alert(data.message || 'Error login');
+      const token = data.token;
+      const dash = await fetch('/api/admin/dashboard', { headers: { Authorization: 'Bearer ' + token }});
+      const jd = await dash.json();
+      document.getElementById('dashboard').innerHTML = '<div class="bg-gray-800 p-4 rounded">Productos: ' + jd.productsCount + '</div>' +
+        '<div class="bg-gray-800 p-4 rounded">Usuarios: ' + jd.usersCount + '</div>' +
+        '<div class="bg-gray-800 p-4 rounded">Pedidos: ' + jd.ordersCount + '</div>';
+    });
+  </script>
+</body>
+</html>

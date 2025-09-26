@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SofyTech 2.0</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white">
+  <header class="bg-blue-900 p-4 flex justify-between items-center">
+    <div class="flex items-center gap-4">
+      <div id="logo" class="w-12 h-12 bg-gray-300 text-black flex items-center justify-center rounded">Logo</div>
+      <h1 class="text-2xl font-bold">SofyTech 2.0</h1>
+    </div>
+
+    <nav class="space-x-6">
+      <a href="#productos" class="hover:text-blue-300">Productos</a>
+      <a href="#registro" class="hover:text-blue-300">Registro</a>
+      <a href="#carrito" class="hover:text-blue-300">Carrito</a>
+      <a href="#contacto" class="hover:text-blue-300">Contacto</a>
+      <a href="/admin.html" class="text-blue-200 underline">Admin</a>
+      <a href="/editor.html" class="text-blue-200 underline">Editor</a>
+    </nav>
+  </header>
+
+  <main class="p-8">
+    <section id="productos" class="py-8">
+      <h2 class="text-3xl mb-6">Productos</h2>
+      <div id="productsGrid" class="grid md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <section id="registro" class="py-8">
+      <h2 class="text-3xl mb-4">Registro / Login</h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <form id="registerForm" class="bg-gray-800 p-6 rounded">
+          <h3 class="text-lg mb-3">Registro</h3>
+          <input id="rname" placeholder="Nombre" class="w-full p-2 mb-2 rounded bg-gray-700"/>
+          <input id="remail" placeholder="Correo" class="w-full p-2 mb-2 rounded bg-gray-700"/>
+          <input id="rpass" placeholder="Contraseña" type="password" class="w-full p-2 mb-2 rounded bg-gray-700"/>
+          <button class="bg-blue-600 px-4 py-2 rounded">Registrarse</button>
+        </form>
+
+        <form id="loginForm" class="bg-gray-800 p-6 rounded">
+          <h3 class="text-lg mb-3">Login</h3>
+          <input id="lemail" placeholder="Correo" class="w-full p-2 mb-2 rounded bg-gray-700"/>
+          <input id="lpass" type="password" placeholder="Contraseña" class="w-full p-2 mb-2 rounded bg-gray-700"/>
+          <button class="bg-blue-600 px-4 py-2 rounded">Entrar</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="carrito" class="py-8">
+      <h2 class="text-3xl mb-4">Carrito</h2>
+      <div id="cartSummary" class="bg-gray-800 p-6 rounded">Carrito vacío</div>
+    </section>
+
+    <section id="contacto" class="py-8">
+      <h2 class="text-3xl mb-4">Contacto</h2>
+      <p>Contáctanos por WhatsApp:</p>
+      <a id="whatsBtn" href="https://wa.me/573001234567" target="_blank" class="inline-block mt-2 bg-green-600 px-4 py-2 rounded">WhatsApp</a>
+    </section>
+  </main>
+
+  <footer class="bg-blue-900 text-center p-4">
+    <p>&copy; 2025 SofyTech 2.0</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

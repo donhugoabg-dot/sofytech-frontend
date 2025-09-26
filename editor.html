@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Editor - SofyTech 2.0</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white p-8">
+  <h1 class="text-3xl mb-4">Panel Editor - SofyTech 2.0</h1>
+
+  <form id="productForm" class="bg-gray-800 p-6 rounded max-w-lg">
+    <input id="title" placeholder="Título" class="w-full p-2 mb-2 rounded bg-gray-700"/>
+    <input id="slug" placeholder="Slug (url-amigable)" class="w-full p-2 mb-2 rounded bg-gray-700"/>
+    <textarea id="description" placeholder="Descripción" class="w-full p-2 mb-2 rounded bg-gray-700"></textarea>
+    <input id="price" placeholder="Precio" type="number" class="w-full p-2 mb-2 rounded bg-gray-700"/>
+    <input id="stock" placeholder="Stock" type="number" class="w-full p-2 mb-2 rounded bg-gray-700"/>
+    <input id="eemail" placeholder="Email (editor/admin)" class="w-full p-2 mb-2 rounded bg-gray-700"/>
+    <input id="epass" placeholder="Password" type="password" class="w-full p-2 mb-2 rounded bg-gray-700"/>
+    <button class="bg-blue-600 px-4 py-2 rounded">Crear producto</button>
+  </form>
+
+  <script>
+    document.getElementById('productForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('eemail').value;
+      const pass = document.getElementById('epass').value;
+      if(!email || !pass) return alert('Ingresa credenciales de editor/admin');
+      // login
+      const res = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password: pass }) });
+      const data = await res.json();
+      if(!data.token) return alert(data.message || 'Error login');
+      const token = data.token;
+      const body = {
+        title: document.getElementById('title').value,
+        slug: document.getElementById('slug').value,
+        description: document.getElementById('description').value,
+        price: Number(document.getElementById('price').value),
+        stock: Number(document.getElementById('stock').value)
+      };
+      const create = await fetch('/api/products', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + token }, body: JSON.stringify(body) });
+      const json = await create.json();
+      if(json.id) alert('Producto creado');
+      else alert(json.message || 'Error');
+    });
+  </script>
+</body>
+</html>
